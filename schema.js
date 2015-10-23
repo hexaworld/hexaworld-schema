@@ -128,11 +128,12 @@ var hexaworld = {
     polygon: {
       allOf: [
         { $ref: "#/definitions/shape" },
-        lines: {
+        faces: {
           type: "array",
           items: {
             p1: { $ref: "#/definitions/pixelCoord" },
-            p2: { $ref: "#/definitions/pixelCoord" }
+            p2: { $ref: "#/definitions/pixelCoord" },
+            p3: { $ref: "#/definitions/pixelCoord" }
           }
         }
       ]
