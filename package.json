@@ -2,7 +2,7 @@
   "name": "hexaworld-schema",
   "version": "0.0.0",
   "description": "A schema and validation functions for hexaworld levels ",
-  "main": "schema.js",
+  "main": "js/hexaworld.js",
   "scripts": {
     "test": "node test/all.js"
   },
