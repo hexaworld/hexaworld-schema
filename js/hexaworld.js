@@ -153,21 +153,28 @@ var hexaworld = {
 
     // game-specific definitions
 
+    start: {
+        type: "object",
+        properties: {
+            tile: { $ref: "#/definitions/axialCoord" },
+            section: { $ref: "#/definitions/section" }
+        }
+    }
+
     player: {
       type: "object",
       properties: {
-        start: {
-          type: "object",
-          properties: {
-            tile: { $ref: "#/definitions/axialCoord" },
-            section: { $ref: "#/definitions/section" }
-          }
-        },
+        start: { $ref: "#/definitions/start" },
         shape: { $ref: "#/definitions/shape" }
       }
     },
 
-    camera: { $ref: "#/definitions/pixelCoord" },
+    camera: {
+        { $ref: "#/definitions/start" },
+        { properties:
+            height: "number"
+        }
+    },
 
     section: {
       type: "integer",
