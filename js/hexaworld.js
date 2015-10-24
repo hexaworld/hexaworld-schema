@@ -97,58 +97,13 @@ var hexaworld = {
       }
     },
 
-    shape: {
+    item: {
       type: "object",
       properties: {
+        name: { $ref: "string" },
         color: { $ref: "#/definitions/color" },
         transformation: { $ref: "#/definitions/transformation" },
-
-        // TODO: how should we represent textures?
-        texture: { type: "string" }
       }
-    },
-
-    ellipsoid: {
-      allOf: [
-        { $ref: "#/definitions/shape" },
-        { properties: {
-            center: { $ref: "#/definitions/pixelCoord" },
-            a: { type: "number" },
-            b: { type: "number" },
-            c: { type: "number" }
-          }
-        }
-      ]
-    },
-
-    rectangle: {
-      allOf: [
-        { $ref: "#/definitions/shape" },
-        { properties: {
-            s1: { type: "number" },
-            s2: { type: "number" },
-            s3: { type: "number" }
-          }
-        }
-      ]
-    },
-
-    // not checking if valid polygon
-    polygon: {
-      allOf: [
-        { $ref: "#/definitions/shape" },
-        { properties: {
-            faces: {
-              type: "array",
-              items: {
-                p1: { $ref: "#/definitions/pixelCoord" },
-                p2: { $ref: "#/definitions/pixelCoord" },
-                p3: { $ref: "#/definitions/pixelCoord" }
-              }
-            }
-          }
-        }
-      ]
     },
 
     // game-specific definitions
@@ -159,33 +114,29 @@ var hexaworld = {
             tile: { $ref: "#/definitions/axialCoord" },
             section: { $ref: "#/definitions/section" }
         }
-    }
+    },
 
     player: {
       type: "object",
       properties: {
-        start: { $ref: "#/definitions/start" },
-        shape: { $ref: "#/definitions/shape" }
+        start: { $ref: "#/definitions/start" }
       }
     },
 
     camera: {
+      allOf: [
         { $ref: "#/definitions/start" },
-        { properties:
+        { properties: {
             height: "number"
+          }
         }
+      ]
     },
 
     section: {
       type: "integer",
       minimum: 0,
       maximum: 7
-    },
-
-    path: {
-      allOf: [
-        { $ref: "#/definitions/shape" }
-      ]
     },
 
     tile: {
@@ -200,10 +151,10 @@ var hexaworld = {
             type: "object",
             properties: {
               position: { $ref: "#/definitions/section" },
-              path: { $ref: "#/definitions/path" },
-              objects: {
+              path: { type: "boolean" },
+              items: {
                 type: "array",
-                items: { $ref: "#/definitions/shape" }
+                items: { $ref: "#/definitions/item" }
               }
             },
             required: ["position"]
