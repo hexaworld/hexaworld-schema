@@ -103,7 +103,8 @@ var hexaworld = {
         name: { $ref: "string" },
         color: { $ref: "#/definitions/color" },
         transformation: { $ref: "#/definitions/transformation" },
-      }
+      },
+      required: ["name"]
     },
 
     // game-specific definitions
@@ -113,14 +114,16 @@ var hexaworld = {
         properties: {
             tile: { $ref: "#/definitions/axialCoord" },
             section: { $ref: "#/definitions/section" }
-        }
+        },
+        required: ["tile", "section"]
     },
 
     player: {
       type: "object",
       properties: {
         start: { $ref: "#/definitions/start" }
-      }
+      },
+      required: ["start"]
     },
 
     camera: {
@@ -128,7 +131,8 @@ var hexaworld = {
         { $ref: "#/definitions/start" },
         { properties: {
             height: "number"
-          }
+          },
+          required: ["height"]
         }
       ]
     },
