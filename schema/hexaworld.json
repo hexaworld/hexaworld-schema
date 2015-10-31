@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema#",
   "id": "https://github.com/hexaworld/hexaworld-schema/schema.js",
   "definitions": {
-    "pixelCoord": {
+    "pixel": {
       "type": "array",
       "minItems": 2,
       "maxItems": 3,
@@ -10,7 +10,7 @@
         "type": "number"
       }
     },
-    "axialCoord": {
+    "axial": {
       "type": "array",
       "minItems": 2,
       "maxItems": 2,
@@ -69,10 +69,24 @@
     },
     "rotationDegrees": {
       "type": "number",
-      "minimum": -180,
-      "maximum": 180
+      "minimum": 0,
+      "maximum": 360
     },
     "transformation": {
+      "position": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          }
+        }
+      },
       "scale": {
         "type": "object",
         "properties": {
@@ -102,7 +116,7 @@
         }
       }
     },
-    "item": {
+    "object": {
       "type": "object",
       "properties": {
         "name": {
@@ -119,79 +133,31 @@
         "name"
       ]
     },
-    "start": {
+    "path": {
       "type": "object",
       "properties": {
-        "tile": {
-          "$ref": "#/definitions/axialCoord"
-        },
-        "section": {
-          "$ref": "#/definitions/section"
+        "rotation": {
+          "type": "integer",
+          "multipleOf": 60
         }
-      },
-      "required": [
-        "tile",
-        "section"
-      ]
-    },
-    "player": {
-      "type": "object",
-      "properties": {
-        "start": {
-          "$ref": "#/definitions/start"
-        }
-      },
-      "required": [
-        "start"
-      ]
-    },
-    "camera": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/start"
-        },
-        {
-          "properties": {
-            "height": "number"
-          },
-          "required": [
-            "height"
-          ]
-        }
-      ]
-    },
-    "section": {
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 7
+      }
     },
     "tile": {
       "type": "object",
       "properties": {
         "position": {
-          "$ref": "#/definitions/axialCoord"
+          "$ref": "#/definitions/axial"
         },
-        "sections": {
+        "objects": {
           "type": "array",
-          "uniqueItems": true,
           "items": {
-            "type": "object",
-            "properties": {
-              "position": {
-                "$ref": "#/definitions/section"
+            "oneOf": [
+              {
+                "$ref": "#/definitions/path"
               },
-              "path": {
-                "type": "boolean"
-              },
-              "items": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/item"
-                }
+              {
+                "$ref": "#/definitions/object"
               }
-            },
-            "required": [
-              "position"
             ]
           }
         }
@@ -201,18 +167,24 @@
       ]
     }
   },
-  "allOf": [
-    {
+  "type": "object",
+  "properties": {
+    "world": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/tile"
       }
     },
-    {
+    "player": {
       "$ref": "#/definitions/player"
     },
-    {
+    "camera": {
       "$ref": "#/definitions/camera"
     }
+  },
+  "required": [
+    "world",
+    "player",
+    "camera"
   ]
 }
