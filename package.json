@@ -1,0 +1,23 @@
+{
+  "name": "hexaworld-schema",
+  "version": "0.0.0",
+  "description": "A schema and validation functions for hexaworld levels ",
+  "main": "js/hexaworld.js",
+  "scripts": {
+    "test": "node test/all.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hexaworld/hexaworld-schema"
+  },
+  "author": "Andrew Osheroff <andrewosh@gmail.com> (http://andrewosh.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hexaworld/hexaworld-schema/issues"
+  },
+  "homepage": "https://github.com/hexaworld/hexaworld-schema",
+  "dependencies": {
+    "jsonschema": "^1.0.2",
+    "lodash": "^3.10.1"
+  }
+}
