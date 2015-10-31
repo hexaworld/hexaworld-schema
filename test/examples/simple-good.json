@@ -1,0 +1,32 @@
+{
+  "world": [
+    {
+      "tile": { "position": [0, 0], "objects": [
+          { "path": { "rotation": 0 } }, 
+          { "path": { "rotation": 60 } }
+        ]
+      }
+    },
+    {
+      "tile": { "position": [0, 1], "objects": [
+          { "path": { "rotation": 0 } }, 
+          { "path": { "rotation": 60 } }
+        ]
+      }
+    },
+    {
+      "tile": { "position": [0, 2], "objects": [
+          { "path": { "rotation": 180 } }, 
+          { "path": { "rotation": 60 } }
+        ]
+      }
+    },
+    { "tile": { "position": [1, 1], "objects": [
+          { "object": { "name": "tree" } }
+        ]
+      }
+    }
+  ],
+  "player": { "position": [0, 0] },
+  "camera": { "position": [0, 0], "height": 1 }
+}

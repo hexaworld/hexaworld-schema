@@ -11,7 +11,7 @@ var hexaworld = {
       type: 'array',
       minItems: 2,
       maxItems: 3,
-      items: { type: 'number'}
+      items: { type: 'integer'}
     },
 
     axial: {
@@ -109,7 +109,7 @@ var hexaworld = {
     object: {
       type: 'object',
       properties: {
-        name: { $ref: 'string' },
+        name: { type : 'string' },
         color: { $ref: '#/definitions/color' },
         transformation: { $ref: '#/definitions/transformation' },
       },
@@ -136,21 +136,57 @@ var hexaworld = {
           type: 'array',
           items: {
             'oneOf': [
-              { $ref: '#/definitions/path' },
-              { $ref: '#/definitions/object' }
+              { type: 'object',
+                properties: {
+                  path: { $ref: '#/definitions/path' }
+                },
+                required: ['path']
+              },
+              { type: 'object',
+                properties: {
+                  object: { $ref: '#/definitions/object' }
+                },
+                required: ['object']
+              }
             ]
           }
         }
       },
       required: ['position']
     },
+
+    player: {
+      type: 'object',
+      properties: {
+        position: { $ref: '#/definitions/pixel' }
+      },
+      required: ['position']
+    },
+
+    camera: {
+      type: 'object',
+      properties: {
+        position: { $ref: '#/definitions/pixel' },
+        height: { 
+          type: 'number',
+          minimum: 0
+        }
+      },
+      required: ['position', 'height']
+    }
   },
 
   type: 'object',
   properties: {
     world:
       { type: 'array',
-        items: { $ref: '#/definitions/tile' }
+        items: { 
+          type: 'object',
+          properties: {
+            tile: { $ref: '#/definitions/tile' }
+          },
+          required: ['tile']
+        }
       },
     player: { $ref: '#/definitions/player' },
     camera: { $ref: '#/definitions/camera' }
